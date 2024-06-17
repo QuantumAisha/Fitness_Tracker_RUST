@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "canisters": {
+    "fitness_tracker": {
+      "type": "rust",
+      "package": "fitness_tracker",
+      "candid": "src/fitness_tracker/fitness_tracker.did"
+    }
+  },
+  "output_env_file": ".env"
+}

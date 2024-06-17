@@ -1,0 +1,63 @@
+type Activity = record {
+  id : nat64;
+  duration : nat64;
+  date : nat64;
+  "type" : text;
+  created_at : nat64;
+  user_id : nat64;
+};
+type ActivityPayload = record {
+  duration : nat64;
+  date : nat64;
+  "type" : text;
+  user_id : nat64;
+};
+type Challenge = record {
+  id : nat64;
+  title : text;
+  participants : vec nat64;
+  creator_id : nat64;
+  description : text;
+  created_at : nat64;
+};
+type ChallengePayload = record {
+  title : text;
+  creator_id : nat64;
+  description : text;
+};
+type Follow = record {
+  id : nat64;
+  created_at : nat64;
+  following_id : nat64;
+  follower_id : nat64;
+};
+type FollowPayload = record { following_id : nat64; follower_id : nat64 };
+type Result = variant { Ok : Activity; Err : text };
+type Result_1 = variant { Ok : Challenge; Err : text };
+type Result_2 = variant { Ok : User; Err : text };
+type Result_3 = variant { Ok : Follow; Err : text };
+type Result_4 = variant { Ok : vec Activity; Err : text };
+type Result_5 = variant { Ok : vec Challenge; Err : text };
+type Result_6 = variant { Ok : vec User; Err : text };
+type Result_7 = variant { Ok : vec Follow; Err : text };
+type User = record {
+  id : nat64;
+  name : text;
+  created_at : nat64;
+  email : text;
+  points : nat64;
+};
+type UserPayload = record { name : text; email : text };
+service : {
+  create_activity : (ActivityPayload) -> (Result);
+  create_challenge : (ChallengePayload) -> (Result_1);
+  create_user : (UserPayload) -> (Result_2);
+  follow_user : (FollowPayload) -> (Result_3);
+  get_activities : () -> (Result_4) query;
+  get_challenges : () -> (Result_5) query;
+  get_leaderboard : () -> (Result_6) query;
+  get_user_activities : (nat64) -> (Result_4) query;
+  get_user_followers : (nat64) -> (Result_7) query;
+  get_users : () -> (Result_6) query;
+  join_challenge : (nat64, nat64) -> (Result_1);
+}
